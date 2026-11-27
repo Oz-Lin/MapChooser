@@ -74,7 +74,7 @@ Chat: `!maps` (or `/maps`). Console: `sw_maps`. A `[map]` is a map's name, or pa
 | `!maps` | `!mapmenu` | Open the map menu — [Menus](#-menus) |
 | `!timeleft` | — | Time or rounds left |
 | `!nextmap` | — | The next map, when known |
-| `!nominate [map]` | `!nom`, `!yd` | Put a map on the next ballot. Without one, opens **Nominate** |
+| `!nominate [map]` | `!nom`, `!yd` | Put a map on the next ballot. Without one, opens **Nominate**; a partial name can open a filtered list. |
 | `!rtv` | — | Ask for a vote now. Enough players asking starts one |
 | `!unrtv` | — | Take back your `!rtv`, and with it your ballot during a vote |
 | `!revote` | — | Reopen the ballot during a vote |
@@ -114,6 +114,8 @@ Map vote                                               !maps
 ```
 
 **Vote** shows during a vote, to players who may vote, unless `DisableVoteMenuExit` is on; **Nominate** while `Rtv.NominationEnabled` is on; each admin page with its command's permission. With none of them, `!maps` replies `There is nothing to open right now.` `!votemap` opens its list outside the map menu.
+
+For example, `!nominate ze_minecraft_` or `!nominate ze_surf_` lists the eligible matching maps when more than one matches. Exact names and map/Workshop IDs take precedence; a single eligible result is nominated directly. Matching ignores case and lists prefix matches before other substring matches.
 
 On **Nominate**, a map that can't be nominated now is greyed out, with the reason: **Played recently**, **Needs 4 players** or **Up to 3 players**. On **Map cycle**, the title shows **Mode: Sequential** or **Mode: Random**, **◄** marks the current map and **→** the next.
 

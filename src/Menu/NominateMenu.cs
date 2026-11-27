@@ -25,13 +25,16 @@ public class NominateMenu
     }
 
     public IMenu Build(IPlayer player, Action<IPlayer, string> onNominate)
+        => Build(player, onNominate, null);
+
+    internal IMenu Build(IPlayer player, Action<IPlayer, string> onNominate, IReadOnlyList<Map>? matches)
     {
         var localizer = _core.Translation.GetPlayerLocalizer(player);
         _core.TryGetEngineSnapshot(out var currentMapId, out var currentWorkshopId, out _);
         var builder = _core.Menu.CreateMenu(MapChooserMenuIds.Nominate);
         builder.AddHeader(new TitleComponent(localizer["map_chooser.nominate.title"] ?? "Nominate a map:") { Overflow = MenuTextOverflow.None });
         var playerCount = MapAvailability.CountHumans(_core);
-        foreach (var map in _mapLister.Maps)
+        foreach (var map in matches ?? _mapLister.Maps)
         {
             var availability = MapAvailability.Of(map, currentMapId, currentWorkshopId, _mapCooldown, playerCount);
             if (availability == MapChooserAvailability.CurrentMap) continue;
